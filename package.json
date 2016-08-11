@@ -1,0 +1,18 @@
+{
+  "name": "WigGLe",
+  "version": "0.0.1",
+  "description": "WebGL toolkit",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/poulpe/wiggle.git"
+  },
+  "main": "./src/index.js",
+  "browser": {
+    "gl-matrix": "gl-matrix"
+  },
+  "author": "poulpe",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "gl-matrix": "^2.3.2"
+  }
+}
