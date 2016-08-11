@@ -11,7 +11,7 @@
     "gl-matrix": "gl-matrix"
   },
   "author": "poulpe",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "dependencies": {
     "gl-matrix": "^2.3.2"
   }
