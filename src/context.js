@@ -7,7 +7,7 @@ var Context = function (canvasId) {
     this.canvas = document.getElementById(canvasId);
 
     try {
-        gl = this.canvas.getContext("webgl");
+        gl = this.canvas.getContext("webgl2");
     } catch (e) {
         alert("Could not initialise WebGL, sorry :-(");
     }

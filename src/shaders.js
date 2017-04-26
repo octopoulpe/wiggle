@@ -92,13 +92,11 @@ Shader.prototype._parseAttributes = function () {
             size: context.globs.attrMap[active.type],
             handler: attrHandler,
         };
-        gl.enableVertexAttribArray(attrHandler);
     }
 };
 
 Shader.prototype.init = function (vsSource, fsSource) {
     var gl = ctx().gl;
-    var i;
 
     var vertexShader = this._getShader(vsSource, gl.VERTEX_SHADER);
     var fragmentShader = this._getShader(fsSource, gl.FRAGMENT_SHADER);
@@ -117,14 +115,6 @@ Shader.prototype.init = function (vsSource, fsSource) {
     this._parseAttributes();
 
     gl.useProgram(shaderProgram);
-
-
-    for (i = 0; i < this.attributes.length; i++) {
-        var attributeName = this.attributes[i].name;
-        var glAttr = gl.getAttribLocation(shaderProgram, attributeName);
-        this.attributes[attributeName] = glAttr;
-        gl.enableVertexAttribArray(glAttr);
-    }
 };
 
 Shader.prototype.use = function () {
