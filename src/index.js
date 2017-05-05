@@ -6,6 +6,7 @@ var Projection = require("./projection");
 var Shader = require("./shaders");
 var context = require("./context");
 var Texture = require("./texture");
+var graph = require("./graph");
 
 module.exports = {
     buffers: buffers,
@@ -13,5 +14,6 @@ module.exports = {
     Projection: Projection,
     Shader: Shader,
     context: context,
-    Texture: Texture
+    Texture: Texture,
+    graph: graph
 };
