@@ -11,10 +11,8 @@ var Projection = function (uniformName, halfScreen) {
 };
 
 Projection.prototype.ortho = function () {
-    var gl = ctx().gl;
     var context = ctx();
 
-    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     var screenRatio = context.canvas.height / context.canvas.width;
 
     var halfScreenX = this._halfScreen;

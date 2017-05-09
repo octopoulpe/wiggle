@@ -70,12 +70,15 @@ Context.prototype._setFlags = function () {
 Context.prototype.resizeIfNeeded = function () {
     var width = this.canvas.clientWidth;
     var height = this.canvas.clientHeight;
+    var gl = this.gl;
+
     if (this.canvas.width !== width || this.canvas.height !== height) {
         this.canvas.width = width;
         this.canvas.height = height;
         this.resizeCallbacks.forEach(function (handler) {
             handler();
         });
+        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     }
 };
 
