@@ -1,5 +1,5 @@
-"use strict";
-var ctx = require("./context").ctx;
+'use strict';
+var ctx = require('./context').ctx;
 
 var unifNameParser = /(\w+)\[?(\d+)?\]?\.?(\w+)?/;
 

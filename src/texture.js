@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var ctx = require("./context").ctx;
+var ctx = require('./context').ctx;
 
 var Texture = function () {
     this._glTexture = ctx().gl.createTexture();
@@ -26,7 +26,7 @@ Texture.prototype._poolGet = function () {
         idxToUse = Texture.usedTexturesIdx.push(true) - 1;
     }
     this.texIdx = i;
-    this._texIdentifier = ctx().gl["TEXTURE" + i];
+    this._texIdentifier = ctx().gl['TEXTURE' + i];
 };
 
 Texture.prototype._poolRelease = function () {

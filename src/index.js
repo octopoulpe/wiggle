@@ -1,12 +1,13 @@
-"use strict";
+'use strict';
 
-var buffers = require("./buffer");
-var Camera = require("./camera");
-var Projection = require("./projection");
-var Shader = require("./shaders");
-var context = require("./context");
-var Texture = require("./texture");
-var graph = require("./graph");
+var buffers = require('./buffer');
+var Camera = require('./camera');
+var Projection = require('./projection');
+var Shader = require('./shaders');
+var context = require('./context');
+var Texture = require('./texture');
+var graph = require('./graph');
+var motion = require('./motion');
 
 module.exports = {
     buffers: buffers,
@@ -15,5 +16,6 @@ module.exports = {
     Shader: Shader,
     context: context,
     Texture: Texture,
-    graph: graph
+    graph: graph,
+    motion: motion,
 };

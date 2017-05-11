@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-var mat4 = require("gl-matrix").mat4;
-var quat = require("gl-matrix").quat;
+var mat4 = require('gl-matrix').mat4;
+var quat = require('gl-matrix').quat;
 
 
 var Transform = function () {

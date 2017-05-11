@@ -1,15 +1,16 @@
-"use strict";
-
+'use strict';
 
 var slowdownWrapper = function (callback, delay) {
     var lastTs = 0;
+    var slowedIdx = 0;
     var wrapped = function (
         name, idx, currentTs, startTs, previousTs, previousPayload
     ) {
         if (currentTs - lastTs > delay) {
             callback(
-                name, idx, currentTs, startTs, lastTs, previousPayload
+                name, slowedIdx, currentTs, startTs, lastTs, previousPayload
             );
+            slowedIdx++;
             lastTs = currentTs;
         }
     };
@@ -19,7 +20,6 @@ var slowdownWrapper = function (callback, delay) {
 var Motion = function (name, callback) {
     this.running = false;
     this._wasRunning = false;
-    this.currentTs = 0;
     this.startTs = 0;
     this.previousTs = 0;
     this.idx = 0;
@@ -39,23 +39,29 @@ Motion.prototype.nowGetter = function () {
 Motion.prototype.tick = function () {
     var running = this.stateChecker();
     if (running) {
-        this.currentTs = this.nowGetter();
+        var currentTs = this.nowGetter();
         if (!this._wasRunning) {
             this._wasRunning = true;
-            this.startTs = this.currentTs;
-            this.previousTs = this.currentTs;
+            this.startTs = currentTs;
+            this.previousTs = currentTs;
             this.idx = 0;
         }
         this.previousPayload = this.callback(
             this.name, this.idx,
-            this.currentTs, this.startTs, this.previousTs,
+            currentTs, this.startTs, this.previousTs,
             this.previousPayload
         );
         this.idx++;
-        this.previousTs = this.currentTs;
+        this.previousTs = currentTs;
     } else {
         if (this._wasRunning) {
             this._wasRunning = false;
         }
     }
+};
+
+
+module.exports = {
+    slowdownWrapper: slowdownWrapper,
+    Motion: Motion,
 };

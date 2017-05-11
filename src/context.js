@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var currentContext = null;
 
@@ -7,12 +7,12 @@ var Context = function (canvasId) {
     this.canvas = document.getElementById(canvasId);
 
     try {
-        gl = this.canvas.getContext("webgl2");
+        gl = this.canvas.getContext('webgl2');
     } catch (e) {
-        alert("Could not initialise WebGL, sorry :-(");
+        alert('Could not initialise WebGL, sorry :-(');
     }
     if (!gl) {
-        alert("Could not initialise WebGL, sorry :-(");
+        alert('Could not initialise WebGL, sorry :-(');
     }
 
     this.gl = gl;

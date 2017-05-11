@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var ctx = require("./context").ctx;
+var ctx = require('./context').ctx;
 
 var Buffer = function () {
     this._glBuffer = null;

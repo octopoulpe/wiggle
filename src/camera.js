@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-var mat4 = require("gl-matrix").mat4;
-var ctx = require("./context").ctx;
-var graph = require("./graph");
+var mat4 = require('gl-matrix').mat4;
+var ctx = require('./context').ctx;
+var graph = require('./graph');
 
 
 var Camera = function (uniformName) {

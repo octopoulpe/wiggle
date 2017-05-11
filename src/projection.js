@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-var mat4 = require("gl-matrix").mat4;
-var ctx = require("./context").ctx;
+var mat4 = require('gl-matrix').mat4;
+var ctx = require('./context').ctx;
 
 
 var Projection = function (uniformName, halfScreen) {
