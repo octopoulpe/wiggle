@@ -17,6 +17,14 @@ var slowdownWrapper = function (callback, delay) {
     return wrapped;
 };
 
+var ticker = function (tickables) {
+    return function () {
+        tickables.forEach(function (tickable) {
+            tickable.tick();
+        });
+    };
+};
+
 var Motion = function (name, callback) {
     this.running = false;
     this._wasRunning = false;
@@ -60,8 +68,8 @@ Motion.prototype.tick = function () {
     }
 };
 
-
 module.exports = {
     slowdownWrapper: slowdownWrapper,
     Motion: Motion,
+    ticker: ticker,
 };

@@ -8,6 +8,7 @@ var context = require('./context');
 var Texture = require('./texture');
 var graph = require('./graph');
 var motion = require('./motion');
+var input = require('./input');
 
 module.exports = {
     buffers: buffers,
@@ -18,4 +19,5 @@ module.exports = {
     Texture: Texture,
     graph: graph,
     motion: motion,
+    input: input,
 };
