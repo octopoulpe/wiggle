@@ -18,9 +18,9 @@ var slowdownWrapper = function (callback, delay) {
 };
 
 var ticker = function (tickables) {
-    return function () {
+    return function (nowTs) {
         tickables.forEach(function (tickable) {
-            tickable.tick();
+            tickable.tick(nowTs);
         });
     };
 };
@@ -44,23 +44,25 @@ Motion.prototype.nowGetter = function () {
     return performance.now();
 };
 
-Motion.prototype.tick = function () {
+Motion.prototype.tick = function (nowTs) {
     var running = this.stateChecker();
     if (running) {
-        var currentTs = this.nowGetter();
+        if (!nowTs) {
+            nowTs = this.nowGetter();
+        }
         if (!this._wasRunning) {
             this._wasRunning = true;
-            this.startTs = currentTs;
-            this.previousTs = currentTs;
+            this.startTs = nowTs;
+            this.previousTs = nowTs;
             this.idx = 0;
         }
         this.previousPayload = this.callback(
             this.name, this.idx,
-            currentTs, this.startTs, this.previousTs,
+            nowTs, this.startTs, this.previousTs,
             this.previousPayload
         );
         this.idx++;
-        this.previousTs = currentTs;
+        this.previousTs = nowTs;
     } else {
         if (this._wasRunning) {
             this._wasRunning = false;
