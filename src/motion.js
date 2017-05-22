@@ -25,7 +25,7 @@ var ticker = function (tickables) {
     };
 };
 
-var Motion = function (name, callback) {
+var Motion = function (name, callback, stateChecker) {
     this.running = false;
     this._wasRunning = false;
     this.startTs = 0;
@@ -34,6 +34,10 @@ var Motion = function (name, callback) {
     this.previousPayload = null;
     this.name = name;
     this.callback = callback;
+    if (stateChecker) {
+        // overload
+        this.stateChecker = stateChecker;
+    }
 };
 
 Motion.prototype.stateChecker = function () {
