@@ -7,23 +7,21 @@ var KeyboardState = function () {
 };
 
 KeyboardState.prototype.keyup = function (event) {
-    this.keystates[event.key] = true;
+    this.keystates[event.code] = true;
 };
 
 KeyboardState.prototype.keydown = function (event) {
-    if (this.keystates[event.key]) {
-        this.keystates[event.key] = false;
+    if (this.keystates[event.code]) {
+        this.keystates[event.code] = false;
     }
 };
 
-KeyboardState.prototype.keyChecker = function (key) {
-    return function () {
-        return this.isPressed(key);
-    }.bind(this);
+KeyboardState.prototype.keyChecker = function (code) {
+    return this.isPressed.bind(this, code);
 };
 
-KeyboardState.prototype.isPressed = function (key) {
-    if (this.keystates[key]) {
+KeyboardState.prototype.isPressed = function (code) {
+    if (this.keystates[code]) {
         return true;
     }
     return false;

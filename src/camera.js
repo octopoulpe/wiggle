@@ -17,4 +17,14 @@ Camera.prototype.expose = function () {
     ctx().shaderInUse.uniforms[this._uniformName](false, this._stagingViewMat);
 };
 
+Camera.prototype.screenTo2dWorld = function (screenX, screenY) {
+    return [
+        screenX + this.node.transform.tX, screenY + this.node.transform.tY,
+    ];
+};
+
+Camera.prototype.world2dPos = function () {
+    return [this.node.transform.tX, this.node.transform.tY, ];
+};
+
 module.exports = Camera;

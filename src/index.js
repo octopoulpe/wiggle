@@ -9,6 +9,7 @@ var Texture = require('./texture');
 var graph = require('./graph');
 var motion = require('./motion');
 var input = require('./input');
+var primitives = require('./primitives');
 
 module.exports = {
     buffers: buffers,
@@ -20,4 +21,5 @@ module.exports = {
     graph: graph,
     motion: motion,
     input: input,
+    primitives: primitives,
 };

@@ -20,8 +20,14 @@ var Context = function (canvasId) {
     this.resizeCallbacks = [];
     this.globs = {};
 
+    this.focused = false;
+
     this._setFlags();
     this._prepareGlobs();
+    this._listen();
+
+    this.mouseX = 0;
+    this.mouseY = 0;
 
     currentContext = this;
 };
@@ -32,6 +38,7 @@ Context.prototype._setFlags = function () {
     gl.enable(gl.BLEND);
     gl.blendEquation(gl.FUNC_ADD);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.DEPTH_TEST);
 };
 
 Context.prototype._prepareGlobs = function () {
@@ -57,14 +64,18 @@ Context.prototype._prepareGlobs = function () {
     globs.attrMap[gl.FLOAT_VEC2] = 2;
     globs.attrMap[gl.FLOAT_VEC3] = 3;
     globs.attrMap[gl.FLOAT_VEC4] = 4;
+
+    this.globs.conf = {};
+    this.globs.conf.halfScreen = 10;
 };
 
-Context.prototype._setFlags = function () {
-    var gl = this.gl;
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.enable(gl.BLEND);
-    gl.blendEquation(gl.FUNC_ADD);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+Context.prototype._listen = function () {
+    document.addEventListener('focus', this._onFocus.bind(this));
+    document.addEventListener('blur', this._onBlur.bind(this));
+    document.addEventListener('mousemove', this._onMouse.bind(this));
+    if (document.hasFocus()) {
+        this._onFocus();
+    }
 };
 
 Context.prototype.resizeIfNeeded = function () {
@@ -84,6 +95,24 @@ Context.prototype.resizeIfNeeded = function () {
 
 Context.prototype.clear = function () {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+};
+
+Context.prototype._onFocus = function () {
+    this.focused = true;
+};
+
+Context.prototype._onBlur = function () {
+    this.focused = false;
+};
+
+Context.prototype._onMouse = function (ev) {
+    this.pointerX = ev.clientX;
+    this.pointerY = ev.clientY;
+    var pixToUnitRatio = 2 * this.globs.conf.halfScreen / this.canvas.width;
+    var mouseX = ev.clientX - this.canvas.width / 2;
+    var mouseY = -(ev.clientY - this.canvas.height / 2);
+    this.mouseX = mouseX * pixToUnitRatio;
+    this.mouseY = mouseY * pixToUnitRatio;
 };
 
 var ctx = function () {

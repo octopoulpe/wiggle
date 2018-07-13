@@ -61,9 +61,8 @@ Motion.prototype.tick = function (nowTs) {
             this.idx = 0;
         }
         this.previousPayload = this.callback(
-            this.name, this.idx,
-            nowTs, this.startTs, this.previousTs,
-            this.previousPayload
+            this.name, nowTs - this.previousTs, this.idx,
+            nowTs, this.startTs, this.previousPayload
         );
         this.idx++;
         this.previousTs = nowTs;

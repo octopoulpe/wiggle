@@ -9,9 +9,9 @@ var Projection = function (uniformName) {
     this._uniformName = uniformName;
 };
 
-Projection.prototype.ortho = function (halfScreenWidth) {
+Projection.prototype.ortho = function () {
     var context = ctx();
-    halfScreenWidth = halfScreenWidth || 3;
+    var halfScreenWidth = context.globs.conf.halfScreen;
 
     var screenRatio = context.canvas.height / context.canvas.width;
 
@@ -24,8 +24,8 @@ Projection.prototype.ortho = function (halfScreenWidth) {
         halfScreenX,
         -halfScreenY,
         halfScreenY,
-        -1,
-        1
+        -10,
+        10
     );
 };
 
