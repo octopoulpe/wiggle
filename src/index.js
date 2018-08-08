@@ -10,6 +10,7 @@ var graph = require('./graph');
 var motion = require('./motion');
 var input = require('./input');
 var primitives = require('./primitives');
+var m2d = require('./m2d');
 
 module.exports = {
     buffers: buffers,
@@ -22,4 +23,5 @@ module.exports = {
     motion: motion,
     input: input,
     primitives: primitives,
+    m2d: m2d,
 };

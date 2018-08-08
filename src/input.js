@@ -20,6 +20,21 @@ KeyboardState.prototype.keyChecker = function (code) {
     return this.isPressed.bind(this, code);
 };
 
+KeyboardState.prototype.eventKeyChecker = function (code) {
+    var hasBeenPressed = false;
+    return function (code) {
+        if (this.isPressed(code)) {
+            if (!hasBeenPressed) {
+                hasBeenPressed = true;
+                return true;
+            }
+        } else {
+            hasBeenPressed = false;
+        }
+        return false;
+    }.bind(this, code);
+};
+
 KeyboardState.prototype.isPressed = function (code) {
     if (this.keystates[code]) {
         return true;

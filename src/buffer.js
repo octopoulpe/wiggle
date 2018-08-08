@@ -51,7 +51,6 @@ Buffer.prototype.commit = function (dynamic) {
     if (dynamic) {
         drawMode = gl.DYNAMIC_DRAW;
     }
-    console.log(this.style, this._glBuffer);
     gl.bindBuffer(this.style, this._glBuffer);
     gl.bufferData(this.style, new this.arrayType(this._vertices), drawMode);
     this._count = this._vertices.length;
