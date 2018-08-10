@@ -12,14 +12,14 @@ var Camera = function (uniformName) {
 };
 
 Camera.prototype.expose = function () {
-    //console.log(this.stagingMat.getTranslation());
     mat4.invert(this._stagingViewMat, this.node.getBubbledMat());
     ctx().shaderInUse.uniforms[this._uniformName](false, this._stagingViewMat);
 };
 
-Camera.prototype.screenTo2dWorld = function (screenX, screenY) {
+Camera.prototype.screenTo2dWorld = function (screenPos) {
     return [
-        screenX + this.node.transform.tX, screenY + this.node.transform.tY,
+        screenPos[0] + this.node.transform.tX,
+        screenPos[1] + this.node.transform.tY
     ];
 };
 

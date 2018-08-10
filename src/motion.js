@@ -52,6 +52,30 @@ var lerper = function (initCb, stepCb, duration) {
 };
 
 
+var averager = function (maxCount) {
+    var fifo = [];
+    return function (item) {
+        fifo.push(item);
+        if (fifo.length > maxCount) {
+            fifo.shift();
+        }
+
+        var avgs = [];
+        var total;
+        var i, j;
+        for (i=0; i<item.length; i++) {
+            total = 0;
+            for (j=0; j<fifo.length; j++) {
+                total += fifo[j][i];
+            }
+            avgs.push(total / fifo.length);
+        }
+
+        return avgs;
+    };
+};
+
+
 var ticker = function (tickables) {
     return function (nowTs) {
         tickables.forEach(function (tickable) {
@@ -68,6 +92,29 @@ var tillStop = function (trigger) {
         if (trig && !active) {
             active = true;
             return true;
+        }
+        if (active && previousPayload) {
+            active = true;
+            return true;
+        }
+        active = false;
+        return false;
+    };
+};
+
+
+var tillOther = function (trigger, stopTrigger) {
+    var active = false;
+    return function (name, delta, idx, nowTs, startTs, previousPayload) {
+        var trig = trigger(name, delta, idx, nowTs, startTs, previousPayload);
+        var stopTrig = stopTrigger(name, delta, idx, nowTs, startTs, previousPayload);
+        if (trig && !active) {
+            active = true;
+            return true;
+        }
+        if (stopTrig) {
+            active = false;
+            return false;
         }
         if (active && previousPayload) {
             active = true;
@@ -139,4 +186,6 @@ module.exports = {
     ticker: ticker,
     lerper: lerper,
     tillStop: tillStop,
+    tillOther: tillOther,
+    averager: averager,
 };

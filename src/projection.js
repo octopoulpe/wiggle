@@ -7,11 +7,14 @@ var ctx = require('./context').ctx;
 var Projection = function (uniformName) {
     this._projMat = mat4.create();
     this._uniformName = uniformName;
+    this.halfScreenWidth = ctx().globs.conf.halfScreen;
+
 };
 
-Projection.prototype.ortho = function () {
+Projection.prototype.ortho = function (halfScreenWidth) {
     var context = ctx();
-    var halfScreenWidth = context.globs.conf.halfScreen;
+    halfScreenWidth = halfScreenWidth || this.halfScreenWidth;
+    this.halfScreenWidth = halfScreenWidth;
 
     var screenRatio = context.canvas.height / context.canvas.width;
 
@@ -27,6 +30,14 @@ Projection.prototype.ortho = function () {
         -10,
         10
     );
+};
+
+Projection.prototype.getPointerPos = function () {
+    var context = ctx();
+    var pixToUnitRatio = 2 * this.halfScreenWidth / context.canvas.width;
+    var mouseX = context.pointerX - context.canvas.width / 2;
+    var mouseY = -(context.pointerY - context.canvas.height / 2);
+    return [mouseX * pixToUnitRatio, mouseY * pixToUnitRatio];
 };
 
 Projection.prototype.perspective = function (fovy, near, far) {

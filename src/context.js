@@ -26,8 +26,8 @@ var Context = function (canvasId) {
     this._prepareGlobs();
     this._listen();
 
-    this.mouseX = 0;
-    this.mouseY = 0;
+    this.pointerX = 0;
+    this.pointerY = 0;
 
     currentContext = this;
 };
@@ -108,11 +108,6 @@ Context.prototype._onBlur = function () {
 Context.prototype._onMouse = function (ev) {
     this.pointerX = ev.clientX;
     this.pointerY = ev.clientY;
-    var pixToUnitRatio = 2 * this.globs.conf.halfScreen / this.canvas.width;
-    var mouseX = ev.clientX - this.canvas.width / 2;
-    var mouseY = -(ev.clientY - this.canvas.height / 2);
-    this.mouseX = mouseX * pixToUnitRatio;
-    this.mouseY = mouseY * pixToUnitRatio;
 };
 
 var ctx = function () {

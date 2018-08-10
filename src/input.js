@@ -35,6 +35,22 @@ KeyboardState.prototype.eventKeyChecker = function (code) {
     }.bind(this, code);
 };
 
+KeyboardState.prototype.releaseKeyChecker = function (code) {
+    var hasBeenPressed = false;
+    return function (code) {
+        if (this.isPressed(code)) {
+            hasBeenPressed = true;
+            return false;
+        } else {
+            if (hasBeenPressed) {
+                hasBeenPressed = false;
+                return true;
+            }
+        }
+        return false;
+    }.bind(this, code);
+};
+
 KeyboardState.prototype.isPressed = function (code) {
     if (this.keystates[code]) {
         return true;
