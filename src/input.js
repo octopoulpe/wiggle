@@ -1,5 +1,8 @@
 'use strict';
 
+var ctx = require('./context').ctx;
+
+
 var KeyboardState = function () {
     this.keystates = {};
     this.boundKeyup = this.keyup.bind(this);
@@ -53,6 +56,10 @@ KeyboardState.prototype.releaseKeyChecker = function (code) {
 
 KeyboardState.prototype.isPressed = function (code) {
     if (this.keystates[code]) {
+        if (!ctx().focused) {
+            this.keystates[code] = false;
+            return false;
+        }
         return true;
     }
     return false;
