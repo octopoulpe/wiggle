@@ -28,7 +28,3 @@ function bundle () {
 
 gulp.task('js', bundle);
 
-gulp.task(
-    'default',
-    ['js', ]
-);

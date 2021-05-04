@@ -27,8 +27,8 @@ Projection.prototype.ortho = function (halfScreenWidth) {
         halfScreenX,
         -halfScreenY,
         halfScreenY,
-        -10,
-        10
+        -100,
+        100
     );
 };
 
@@ -44,7 +44,7 @@ Projection.prototype.perspective = function (fovy, near, far) {
     var context = ctx();
     fovy = fovy || 1.5708;  // 90°
     near = near || 0.1;
-    far = far || 10;
+    far = far || 100;
 
     var screenRatio = context.canvas.width / context.canvas.height;
 
